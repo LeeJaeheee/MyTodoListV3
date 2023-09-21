@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D223D91E2AB15416003B46C6 /* ProfileDesignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D223D91D2AB15416003B46C6 /* ProfileDesignViewController.swift */; };
+		D223D9592ABCDCEA003B46C6 /* TaskModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D223D9572ABCDCE9003B46C6 /* TaskModel.xcdatamodeld */; };
 		D22E70DC2A97DA1E00C6CFBA /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E70DB2A97DA1E00C6CFBA /* SplashViewController.swift */; };
 		D26B05762AA05CBD00A91F0E /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26B05752AA05CBD00A91F0E /* PetViewController.swift */; };
 		D26B05782AA0610A00A91F0E /* ImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26B05772AA0610A00A91F0E /* ImageAPI.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D223D91D2AB15416003B46C6 /* ProfileDesignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDesignViewController.swift; sourceTree = "<group>"; };
+		D223D9582ABCDCEA003B46C6 /* TodoListModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoListModel.xcdatamodel; sourceTree = "<group>"; };
 		D22E70DB2A97DA1E00C6CFBA /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D26B05752AA05CBD00A91F0E /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
 		D26B05772AA0610A00A91F0E /* ImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPI.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				D2D308E62A85AFFA002894C5 /* TodoDetailViewController.swift */,
 				D22E70DB2A97DA1E00C6CFBA /* SplashViewController.swift */,
 				D26B05752AA05CBD00A91F0E /* PetViewController.swift */,
+				D223D91D2AB15416003B46C6 /* ProfileDesignViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				D2D308CF2A8532FD002894C5 /* Task.swift */,
 				D2D308D12A85330A002894C5 /* TaskList.swift */,
 				D26B05772AA0610A00A91F0E /* ImageAPI.swift */,
+				D223D9572ABCDCE9003B46C6 /* TaskModel.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -256,9 +262,11 @@
 				D2D308B72A851C83002894C5 /* AppDelegate.swift in Sources */,
 				D26B05762AA05CBD00A91F0E /* PetViewController.swift in Sources */,
 				D2D308B92A851C83002894C5 /* SceneDelegate.swift in Sources */,
+				D223D91E2AB15416003B46C6 /* ProfileDesignViewController.swift in Sources */,
 				D22E70DC2A97DA1E00C6CFBA /* SplashViewController.swift in Sources */,
 				D2D308D92A8533BD002894C5 /* TodoListTableViewController.swift in Sources */,
 				D2D308E72A85AFFA002894C5 /* TodoDetailViewController.swift in Sources */,
+				D223D9592ABCDCEA003B46C6 /* TaskModel.xcdatamodeld in Sources */,
 				D26B05782AA0610A00A91F0E /* ImageAPI.swift in Sources */,
 				D2D308E92A85B223002894C5 /* Calendar+Extension.swift in Sources */,
 			);
@@ -503,6 +511,19 @@
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		D223D9572ABCDCE9003B46C6 /* TaskModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D223D9582ABCDCEA003B46C6 /* TodoListModel.xcdatamodel */,
+			);
+			currentVersion = D223D9582ABCDCEA003B46C6 /* TodoListModel.xcdatamodel */;
+			path = TaskModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D2D308AB2A851C83002894C5 /* Project object */;
 }

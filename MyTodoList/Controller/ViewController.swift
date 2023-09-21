@@ -39,6 +39,12 @@ class ViewController: UIViewController {
         animationView.play()
     }
 
+    @IBAction func profileDesignVC(_ sender: UIBarButtonItem) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "ProfileDesignViewController") as? ProfileDesignViewController {
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false)
+        }
+    }
     
 }
 
