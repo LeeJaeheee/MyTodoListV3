@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoListTableViewController: UITableViewController {
+class TodoListTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emptyListView: UIView!
     
@@ -20,13 +20,13 @@ class TodoListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        uniqueDueDates = Array(Set(TaskList.list.map { $0.dueDate })).sorted()
+        uniqueDueDates = Array(Set(TaskList.shared.fetchTasks()?.compactMap { $0.dueDate } ?? [])).sorted()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        uniqueDueDates = Array(Set(TaskList.list.map { $0.dueDate })).sorted()
-        emptyListView.isHidden = !TaskList.list.isEmpty
+        uniqueDueDates = Array(Set(TaskList.shared.fetchTasks()?.compactMap { $0.dueDate } ?? [])).sorted()
+        emptyListView.isHidden = !(TaskList.shared.fetchTasks()?.isEmpty ?? true)
         tableView.reloadData()
     }
     
@@ -34,7 +34,8 @@ class TodoListTableViewController: UITableViewController {
         if segue.identifier == "toDetailVC" {
             let vc = segue.destination as! TodoDetailViewController
             if let indexPath = tableView.indexPathForSelectedRow {
-                vc.selectedTask = TaskList.list.filter { $0.dueDate == uniqueDueDates[indexPath.section] }.sorted(by: { $0.time < $1.time })[indexPath.row]
+                let tasks = TaskList.shared.fetchTasks()?.filter { $0.dueDate == uniqueDueDates[indexPath.section] }.sorted(by: { $0.time! < $1.time! })
+                vc.selectedTask = tasks?[indexPath.row]
             }
         }
     }
@@ -42,13 +43,13 @@ class TodoListTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        emptyListView.isHidden = !TaskList.list.isEmpty
+        emptyListView.isHidden = !(TaskList.shared.fetchTasks()?.isEmpty ?? true)
         return uniqueDueDates.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let tasksForSection = TaskList.list.filter { $0.dueDate == uniqueDueDates[section] }
-        return tasksForSection.count
+        let tasksForSection = TaskList.shared.fetchTasks()?.filter { $0.dueDate == uniqueDueDates[section] }
+        return tasksForSection?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -58,11 +59,11 @@ class TodoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListTableViewCell", for: indexPath) as! TodoListTableViewCell
         
-        let tasksForSection = TaskList.list.filter { $0.dueDate == uniqueDueDates[indexPath.section] }.sorted(by: { $0.time < $1.time })
-        let task = tasksForSection[indexPath.row]
+        let tasksForSection = TaskList.shared.fetchTasks()?.filter { $0.dueDate == uniqueDueDates[indexPath.section] }.sorted(by: { $0.time! < $1.time! })
+        let task = tasksForSection?[indexPath.row]
         
         cell.task = task
-        cell.configure(_task: task)
+        cell.configure(task: task!)
         
         return cell
     }
@@ -70,14 +71,16 @@ class TodoListTableViewController: UITableViewController {
     // TODO: "정말 삭제하시겠습니까?" 확인창 추가하기
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let tasksForSection = TaskList.list.filter { $0.dueDate == uniqueDueDates[indexPath.section] }.sorted(by: { $0.time < $1.time })
-            let task = tasksForSection[indexPath.row]
+            let tasksForSection = TaskList.shared.fetchTasks()?.filter { $0.dueDate == uniqueDueDates[indexPath.section] }.sorted(by: { $0.time! < $1.time! })
+            let task = tasksForSection?[indexPath.row]
             
-            TaskList.deleteTask(id: task.id)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            uniqueDueDates = Array(Set(TaskList.list.map { $0.dueDate })).sorted()
-            tableView.reloadData()
+            if let taskToDelete = task {
+                TaskList.shared.deleteTask(task: taskToDelete)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                uniqueDueDates = Array(Set(TaskList.shared.fetchTasks()?.compactMap { $0.dueDate } ?? [])).sorted()
+                tableView.reloadData()
+            }
         }
     }
 
@@ -112,8 +115,8 @@ class TodoListTableViewController: UITableViewController {
                let dueDate = DateFormatter.dateFormatter.date(from: dueDateString),
                let time = DateFormatter.timeFormatter.date(from: timeString),
                !title.isEmpty, !dueDateString.isEmpty, !timeString.isEmpty {
-                TaskList.list.append(Task(title: title, dueDate: dueDate, time: time))
-                uniqueDueDates = Array(Set(TaskList.list.map { $0.dueDate })).sorted()
+                TaskList.shared.addTask(title: title, image: nil, isDone: false, dueDate: dueDate, time: time)
+                uniqueDueDates = Array(Set(TaskList.shared.fetchTasks()?.compactMap { $0.dueDate } ?? [])).sorted()
                 tableView.reloadData()
             } else {
                 self.showInvalidInputAlert()
@@ -134,56 +137,6 @@ class TodoListTableViewController: UITableViewController {
         alert.addAction(okayAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    
-}
-
-extension TodoListTableViewController: UITextFieldDelegate {
-    // FIXME: 유효하지 않으면 FirstResponder 넘어가지 않도록 수정
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == titleTextField {
-            if let text = textField.text {
-                if text.isEmpty {
-                    textField.placeholder = "Invalid Title"
-                    textField.placeholderColor = .red
-                    textField.text = ""
-                } else {
-                    textField.placeholder = "Title"
-                    textField.placeholderColor = .black
-                    dueDateTextField.becomeFirstResponder()
-                }
-            }
-        } else if textField == dueDateTextField {
-            if let text = textField.text {
-                if DateFormatter.dateFormatter.date(from: text) == nil || text.isEmpty {
-                    textField.placeholder = "Invalid Date (yyyy/MM/dd)"
-                    textField.placeholderColor = .red
-                    textField.text = ""
-                } else {
-                    textField.placeholder = "Due Date (yyyy/MM/dd)"
-                    textField.placeholderColor = .black
-                    timeTextField.becomeFirstResponder()
-                }
-            }
-        } else if textField == timeTextField {
-            if let text = textField.text {
-                if DateFormatter.timeFormatter.date(from: text) == nil || text.isEmpty {
-                    textField.placeholder = "Invalid Time (HH:mm)"
-                    textField.placeholderColor = .red
-                    textField.text = ""
-                } else {
-                    textField.placeholder = "Time (HH:mm)"
-                    textField.placeholderColor = .black
-                    textField.resignFirstResponder()
-                }
-            }
-        }
-    }
-    
-    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    //        textField.resignFirstResponder()
-    //        return true
-    //    }
     
 }
 

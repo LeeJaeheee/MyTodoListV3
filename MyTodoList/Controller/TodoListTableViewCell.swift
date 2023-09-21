@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListTableViewCell: UITableViewCell {
     
@@ -16,13 +17,13 @@ class TodoListTableViewCell: UITableViewCell {
     
     var task: Task?
     
-    func configure(_task: Task) {
-        let task = _task
-        todoImage.image = UIImage(named: task.image!)
+    func configure(task: Task) {
+        todoImage.image = UIImage(named: task.image ?? "")
         todoImage.circleImage = true
-        timeLabel.text = DateFormatter.timeFormatter.string(from: task.time)
-        titleLabel.setTextWithStrikethrough(task.title, isDone: task.isDone)
+        timeLabel.text = DateFormatter.timeFormatter.string(from: task.time ?? Date())
+        titleLabel.setTextWithStrikethrough(task.title ?? "", isDone: task.isDone)
         doneSwitch.isOn = task.isDone
+        self.task = task
     }
     
     override func awakeFromNib() {
@@ -35,11 +36,8 @@ class TodoListTableViewCell: UITableViewCell {
     
     @IBAction func switchChanged(_ sender: UISwitch) {
         guard let task = task else { return }
-        TaskList.updateIsDone(id: task.id, isDone: sender.isOn)
-        titleLabel.setTextWithStrikethrough(task.title, isDone: sender.isOn)
-        let tableView = superview?.superview as! UITableView
-        tableView.reloadData()
+        TaskList.updateIsDone(task: task, isDone: sender.isOn)
+        titleLabel.setTextWithStrikethrough(task.title ?? "", isDone: sender.isOn)
+        NotificationCenter.default.post(name: NSNotification.Name("TaskListDidUpdate"), object: nil)
     }
-    
-
 }
