@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileDesignViewController: UIViewController {
 
+    
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -37,6 +38,11 @@ class ProfileDesignViewController: UIViewController {
         
         imageCollectionView.collectionViewLayout = layout
     }
+    
+    @IBAction func backButtonTapped(_ sender: UIButton) {
+        dismiss(animated: false)
+    }
+    
 
 }
 
