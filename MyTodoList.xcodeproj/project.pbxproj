@@ -79,6 +79,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D223D9682ABD1E31003B46C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D2D308D12A85330A002894C5 /* TaskList.swift */,
+				D2A82F652A976BC700CC7CFD /* URLManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D2A82F642A97684900CC7CFD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +121,8 @@
 				D2D308B82A851C83002894C5 /* SceneDelegate.swift */,
 				D2D308CE2A8531BC002894C5 /* Model */,
 				D2A82F642A97684900CC7CFD /* View */,
-				D2D308CD2A8531AE002894C5 /* Controller */,
+				D2D308CD2A8531AE002894C5 /* ViewController */,
+				D223D9682ABD1E31003B46C6 /* ViewModel */,
 				D2D308CA2A852F2C002894C5 /* Utils */,
 				D2D308BF2A851C85002894C5 /* Assets.xcassets */,
 				D2D308C12A851C85002894C5 /* LaunchScreen.storyboard */,
@@ -130,12 +140,11 @@
 				D2D308E02A857303002894C5 /* UILabel+Extension.swift */,
 				D2D308E22A857599002894C5 /* UIImageView+Extension.swift */,
 				D2D308E82A85B223002894C5 /* Calendar+Extension.swift */,
-				D2A82F652A976BC700CC7CFD /* URLManager.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		D2D308CD2A8531AE002894C5 /* Controller */ = {
+		D2D308CD2A8531AE002894C5 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				D2D308D32A85331D002894C5 /* Cell */,
@@ -147,13 +156,12 @@
 				D26B05752AA05CBD00A91F0E /* PetViewController.swift */,
 				D223D91D2AB15416003B46C6 /* ProfileDesignViewController.swift */,
 			);
-			path = Controller;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		D2D308CE2A8531BC002894C5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D2D308D12A85330A002894C5 /* TaskList.swift */,
 				D26B05772AA0610A00A91F0E /* ImageAPI.swift */,
 				D223D9632ABCF55D003B46C6 /* Task.xcdatamodeld */,
 			);
