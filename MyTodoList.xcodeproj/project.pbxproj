@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D223D91E2AB15416003B46C6 /* ProfileDesignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D223D91D2AB15416003B46C6 /* ProfileDesignViewController.swift */; };
 		D223D9652ABCF55D003B46C6 /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D223D9632ABCF55D003B46C6 /* Task.xcdatamodeld */; };
+		D223D9672ABD04BB003B46C6 /* imageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D223D9662ABD04BB003B46C6 /* imageCollectionViewCell.swift */; };
 		D22E70DC2A97DA1E00C6CFBA /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E70DB2A97DA1E00C6CFBA /* SplashViewController.swift */; };
 		D26B05762AA05CBD00A91F0E /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26B05752AA05CBD00A91F0E /* PetViewController.swift */; };
 		D26B05782AA0610A00A91F0E /* ImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26B05772AA0610A00A91F0E /* ImageAPI.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		D223D91D2AB15416003B46C6 /* ProfileDesignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDesignViewController.swift; sourceTree = "<group>"; };
 		D223D9642ABCF55D003B46C6 /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
+		D223D9662ABD04BB003B46C6 /* imageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D22E70DB2A97DA1E00C6CFBA /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D26B05752AA05CBD00A91F0E /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
 		D26B05772AA0610A00A91F0E /* ImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPI.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				D2D308D42A85334C002894C5 /* TodoListTableViewCell.swift */,
+				D223D9662ABD04BB003B46C6 /* imageCollectionViewCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				D2D308CC2A852F56002894C5 /* UIButton+Extension.swift in Sources */,
 				D2D308E32A857599002894C5 /* UIImageView+Extension.swift in Sources */,
 				D2A82F662A976BC700CC7CFD /* URLManager.swift in Sources */,
+				D223D9672ABD04BB003B46C6 /* imageCollectionViewCell.swift in Sources */,
 				D2D308B72A851C83002894C5 /* AppDelegate.swift in Sources */,
 				D26B05762AA05CBD00A91F0E /* PetViewController.swift in Sources */,
 				D2D308B92A851C83002894C5 /* SceneDelegate.swift in Sources */,
